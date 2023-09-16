@@ -1,6 +1,7 @@
 from flask import Flask, request, send_file
 from flask_cors import CORS
 import cv2
+from moviepy.editor import VideoFileClip
 
 
 app = Flask(__name__)
@@ -80,7 +81,15 @@ def upload_file():
     result_vid.release()
     cv2.destroyAllWindows()
 
-    return send_file('./result.mp4', as_attachment=True)
+    video_clip = VideoFileClip("./result.mp4")
+
+    # Convert the video clip to WebM format
+    video_clip.write_videofile(
+        "result.webm", codec='libvpx', preset='ultrafast', threads=4)
+
+    video_clip.close()
+
+    return send_file('./result.webm', as_attachment=True)
 
 
 if __name__ == '__main__':

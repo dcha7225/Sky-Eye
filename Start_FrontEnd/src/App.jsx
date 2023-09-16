@@ -32,14 +32,14 @@ function App() {
           responseType: 'blob', 
         })
         .then((response) => {
-          const blob = new Blob([response.data], { type: 'video/mp4' });
+          const blob = new Blob([response.data], { type: 'video/webm' });
 
           const url = window.URL.createObjectURL(blob);
 
           const a = document.createElement('a');
           a.style.display = 'none';
           a.href = url;
-          a.download = 'result.mp4';
+          a.download = 'result.webm';
           document.body.appendChild(a);
 
           a.click();

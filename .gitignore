@@ -11,7 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
-
+Start_backEnd/inputVideos/raw.mp4
+Start_backEnd/result.mp4
+Start_backEnd/result.webm
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
