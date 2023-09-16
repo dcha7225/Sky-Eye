@@ -1,16 +1,28 @@
-import { useState } from 'react'
+import { useState,  } from 'react'
 import './App.css'
 import WebcamStreamCapture from './components/WebcamRec' 
+import FileDropZone from './components/FileSub'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showCam, setShowCam] = useState(false)
+
+  const handleClick = () => {
+    if (showCam){
+      setShowCam(false);
+     }
+     else{
+      setShowCam(true);
+     }
+  };
 
   return (
     <>
-    <main className='bg'>
+    <main>
       <h1>Start</h1>
-      <WebcamStreamCapture></WebcamStreamCapture>
+      <FileDropZone/>
+      <button onClick={handleClick}>toggle Camera</button>
+      {showCam && <WebcamStreamCapture/>}
     </main>
     </>
   )
