@@ -12,8 +12,8 @@ first_done = False
 # Initialize result video
 fps = video.get(cv2.CAP_PROP_FPS)
 result_vid = cv2.VideoWriter("result.mp4",
-                         cv2.VideoWriter_fourcc('m', 'p', '4', 'v'),
-                         fps, (960, 600))
+                             cv2.VideoWriter_fourcc('m', 'p', '4', 'v'),
+                             fps, (960, 600))
 
 # Loop over frames of video
 while video.isOpened():

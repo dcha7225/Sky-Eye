@@ -16,30 +16,41 @@ function App() {
       setShowCam(true);
      }
   };
-  const handleOnChange = (e) => {
-    const target = e.target;
-    console.log("target", target.files);
-    setFile()
-  }
+
   const handleUpload = () => {
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
+
       axios
         .post('http://127.0.0.1:5000/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
+          responseType: 'blob', 
         })
         .then((response) => {
-          // Handle the response from the server if needed
-          console.log('File upload successful', response);
+          const blob = new Blob([response.data], { type: 'video/mp4' });
+
+          const url = window.URL.createObjectURL(blob);
+
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = 'result.mp4';
+          document.body.appendChild(a);
+
+          a.click();
+
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+
+          console.log('File download successful');
         })
         .catch((error) => {
-          // Handle any errors that occur during the upload
-          console.error('Error uploading file', error);
+          console.error('Error downloading file', error);
         });
-      } 
+      }
       else{
         alert("No file uploaded")
       }
