@@ -68,17 +68,18 @@ function App() {
 
   return (
     <>
-    <main>
+    <main style={{flexDirection: 'column'}}>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <img src={shooting_star} style={{ width: '25%', height: 'auto' }} alt="Logo of Shooting Star" />
       </div>
-      <h1>Start</h1>
       <p style={{ fontSize: '16px' }} >record or submit a video</p>
 
       <FileDropZone file={file} setFile={setFile}/>
       <button onClick={handleToggle}>toggle Camera</button>
       <button onClick={handleUpload}>Submit</button>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       {showCam && <WebcamStreamCapture/>}
+      </div>
       {loading && <div className="loading">Processing...</div>}
       {videoUrl && (
           <video controls>
@@ -87,6 +88,7 @@ function App() {
           </video>
         )} 
     </main>
+    
     </>
   )
 }

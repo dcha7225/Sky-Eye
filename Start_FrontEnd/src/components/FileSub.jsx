@@ -51,7 +51,10 @@ function FileDropZone(props) {
         border: '2px dotted #000',
         padding: '20px',
         textAlign: 'center',
-        cursor: 'pointer', // Change the cursor to indicate it's clickable
+        cursor: 'pointer', 
+        borderRadius: '10px', 
+        opacity: '0.5', 
+        backgroundColor: '#cdd0d3f5'
       }}
     >
       {file == null ? (dragging ? (
