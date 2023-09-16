@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 
-function FileDropZone() {
+function FileDropZone(props) {
   const [dragging, setDragging] = useState(false);
-  const [file, setFile] = useState(null);
+  const {file, setFile} = props;
   const fileInputRef = useRef(null);
 
   const handleDragEnter = (e) => {
@@ -23,13 +23,15 @@ function FileDropZone() {
     e.preventDefault();
     setDragging(false);
 
-    const droppedFile = [e.dataTransfer.files];
-    setFile(droppedFile);
+    const droppedFile = e.dataTransfer.files;
+    setFile(droppedFile[0]);
+    console.log(file)
   };
 
   const handleFileSelect = (e) => {
-    const selectedFile = [e.target.files];
-    setFile(selectedFile);
+    const selectedFile = e.target.files;
+    setFile(selectedFile[0]);
+    console.log(file)
   };
 
   const handleFileInputClick = () => {
@@ -57,7 +59,7 @@ function FileDropZone() {
       ) : (
         <p>Drag and drop files here or click to select</p>
       )):
-        <p>Uploaded!</p>
+        <p>{file.name}</p>
       }
       <input
         type="file"
