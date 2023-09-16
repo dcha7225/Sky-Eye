@@ -7,6 +7,7 @@ import axios from 'axios';
 function App() {
   const [showCam, setShowCam] = useState(false)
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false)
 
   const handleToggle = () => {
     if (showCam){
@@ -21,6 +22,7 @@ function App() {
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
+      setLoading(true);
 
       axios
         .post('http://127.0.0.1:5000/upload', formData, {
@@ -46,9 +48,11 @@ function App() {
           document.body.removeChild(a);
 
           console.log('File download successful');
+          setLoading(false);
         })
         .catch((error) => {
           console.error('Error downloading file', error);
+          setLoading(false);
         });
       }
       else{
@@ -64,6 +68,7 @@ function App() {
       <button onClick={handleToggle}>toggle Camera</button>
       <button onClick={handleUpload}>Submit</button>
       {showCam && <WebcamStreamCapture/>}
+      {loading && <div className="loading">Processing...</div>} 
     </main>
     </>
   )
