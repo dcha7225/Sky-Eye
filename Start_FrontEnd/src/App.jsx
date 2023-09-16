@@ -8,6 +8,7 @@ function App() {
   const [showCam, setShowCam] = useState(false)
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false)
+  const [videoUrl, setVideoUrl] = useState(null);
 
   const handleToggle = () => {
     if (showCam){
@@ -33,9 +34,12 @@ function App() {
         })
         .then((response) => {
           const blob = new Blob([response.data], { type: 'video/webm' });
+          
+          const videoUrl = window.URL.createObjectURL(blob);
 
+          setVideoUrl(videoUrl); // Set the video URL in the state
+          /*
           const url = window.URL.createObjectURL(blob);
-
           const a = document.createElement('a');
           a.style.display = 'none';
           a.href = url;
@@ -46,6 +50,7 @@ function App() {
 
           window.URL.revokeObjectURL(url);
           document.body.removeChild(a);
+          */ 
 
           console.log('File download successful');
           setLoading(false);
@@ -68,7 +73,13 @@ function App() {
       <button onClick={handleToggle}>toggle Camera</button>
       <button onClick={handleUpload}>Submit</button>
       {showCam && <WebcamStreamCapture/>}
-      {loading && <div className="loading">Processing...</div>} 
+      {loading && <div className="loading">Processing...</div>}
+      {videoUrl && (
+          <video controls>
+            <source src={videoUrl} type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+        )} 
     </main>
     </>
   )
